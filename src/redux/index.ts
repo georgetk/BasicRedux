@@ -1,4 +1,4 @@
-import {AnyAction, Store, applyMiddleware, createStore} from '@reduxjs/toolkit';
+import {AnyAction, Store, configureStore} from '@reduxjs/toolkit';
 import {
   ACTION_INTERFACE,
   STATE_OBJECT,
@@ -7,10 +7,10 @@ import {
 import thunk, {ThunkDispatch} from 'redux-thunk';
 import {useDispatch} from 'react-redux';
 
-export const store: Store<STATE_OBJECT, ACTION_INTERFACE> = createStore(
-  listReducer,
-  applyMiddleware(thunk),
-);
+export const store: Store<STATE_OBJECT, ACTION_INTERFACE> = configureStore({
+  reducer: listReducer,
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(thunk),
+});
 
 type AppState = ReturnType<typeof listReducer>;
 
