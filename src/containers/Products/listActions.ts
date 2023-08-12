@@ -3,10 +3,10 @@ import {PRODUCTS_ENDPOINT, axiosService} from '../../axios';
 import {ThunkAction} from 'redux-thunk';
 import {STATE_OBJECT} from './listReducer';
 
-const FETCHING_PRODUCTS = 'FETCHING_PRODUCTS';
-const FETCHING_PRODUCTS_SUCCESS = 'FETCHING_PRODUCTS_SUCCESS';
-const FETCHING_PRODUCTS_FAILURE = 'FETCHING_PRODUCTS_FAILURE';
-const UPDATE_COUNT = 'UPDATE_COUNT';
+export const FETCHING_PRODUCTS = 'FETCHING_PRODUCTS';
+export const FETCHING_PRODUCTS_SUCCESS = 'FETCHING_PRODUCTS_SUCCESS';
+export const FETCHING_PRODUCTS_FAILURE = 'FETCHING_PRODUCTS_FAILURE';
+export const UPDATE_COUNT = 'UPDATE_COUNT';
 
 export enum PRODUCT_COUNT_OPERATION {
   INCREMENT = 'increment',
@@ -22,9 +22,9 @@ export interface PRODUCT_OBJECT {
   count: number;
 }
 
-const fetchingProductsAction = () => ({type: FETCHING_PRODUCTS, payload: null});
-
 type ERROR_PAYLOAD = string;
+
+const fetchingProductsAction = () => ({type: FETCHING_PRODUCTS, payload: null});
 
 const fetchingProductsSuccessAction = (payload: PRODUCT_OBJECT[]) => ({
   type: FETCHING_PRODUCTS_SUCCESS,
@@ -41,7 +41,7 @@ export const updateCountAction = (payload: PRODUCT_OBJECT[]) => ({
   payload: {products: payload},
 });
 
-const fetchProducts = (): ThunkAction<
+export const fetchProducts = (): ThunkAction<
   void,
   STATE_OBJECT,
   unknown,
@@ -71,7 +71,7 @@ const fetchProducts = (): ThunkAction<
   };
 };
 
-const updateCount =
+export const updateCount =
   (id: number, products: PRODUCT_OBJECT[], type: string) =>
   (disptach: Dispatch) => {
     const modifiedList = products.map(item => {
@@ -92,12 +92,3 @@ const updateCount =
 
     disptach(updateCountAction(modifiedList));
   };
-
-export {
-  FETCHING_PRODUCTS,
-  FETCHING_PRODUCTS_SUCCESS,
-  FETCHING_PRODUCTS_FAILURE,
-  UPDATE_COUNT,
-  fetchProducts,
-  updateCount,
-};

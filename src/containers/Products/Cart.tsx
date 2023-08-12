@@ -15,12 +15,16 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({products}) => {
-  const tCount = products.reduce((acc, curr) => acc + curr.count, 0);
-
-  const tPrice = products.reduce(
-    (acc, curr) => acc + curr.count * curr.price,
-    0,
+  const result = products.reduce(
+    (acc, curr) => {
+      acc.tCount += curr.count;
+      acc.tPrice += curr.count * curr.price;
+      return acc;
+    },
+    {tCount: 0, tPrice: 0},
   );
+
+  const {tCount, tPrice} = result;
 
   return (
     <View>
