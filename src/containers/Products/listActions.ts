@@ -71,24 +71,28 @@ export const fetchProductsThunk = (): ThunkAction<
   };
 };
 
-export const updateCounThunk =
+export const modifiedList = (
+  id: number,
+  products: PRODUCT_OBJECT[],
+  type: string,
+) =>
+  products.map(item => {
+    if (item.id === id) {
+      return {
+        ...item,
+        count:
+          type === PRODUCT_COUNT_OPERATION.INCREMENT
+            ? (item?.count || 0) + 1
+            : item?.count >= 1
+            ? item?.count - 1
+            : 0,
+      };
+    }
+
+    return item;
+  });
+
+export const updateCountThunk =
   (id: number, products: PRODUCT_OBJECT[], type: string) =>
-  (disptach: Dispatch) => {
-    const modifiedList = products.map(item => {
-      if (item.id === id) {
-        return {
-          ...item,
-          count:
-            type === PRODUCT_COUNT_OPERATION.INCREMENT
-              ? (item?.count || 0) + 1
-              : item?.count >= 1
-              ? item?.count - 1
-              : 0,
-        };
-      }
-
-      return item;
-    });
-
-    disptach(updateCountAction(modifiedList));
-  };
+  (disptach: Dispatch) =>
+    disptach(updateCountAction(modifiedList(id, products, type)));

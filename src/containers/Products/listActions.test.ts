@@ -1,7 +1,8 @@
 import thunk from 'redux-thunk';
 import {
   PRODUCT_COUNT_OPERATION,
-  updateCounThunk,
+  modifiedList,
+  updateCountThunk,
   updateCountAction,
 } from './listActions';
 import configureStore from 'redux-mock-store';
@@ -92,34 +93,25 @@ const productsAfterIncrement = [
 
 const productId = 2;
 
-const modifiedList = (id: number, type: string) =>
-  initialProducts.map(item => {
-    if (item.id === id) {
-      return {
-        ...item,
-        count:
-          type === PRODUCT_COUNT_OPERATION.INCREMENT
-            ? (item?.count || 0) + 1
-            : item?.count >= 1
-            ? item?.count - 1
-            : 0,
-      };
-    }
-
-    return item;
-  });
-
 describe('Checking count update scenarios:', () => {
   it('should correctly decrement the product count', () => {
-    expect(modifiedList(productId, PRODUCT_COUNT_OPERATION.DECREMENT)).toEqual(
-      productsAfterDecrement,
-    );
+    expect(
+      modifiedList(
+        productId,
+        initialProducts,
+        PRODUCT_COUNT_OPERATION.DECREMENT,
+      ),
+    ).toEqual(productsAfterDecrement);
   });
 
   it('should correctly increment the product count', () => {
-    expect(modifiedList(productId, PRODUCT_COUNT_OPERATION.INCREMENT)).toEqual(
-      productsAfterIncrement,
-    );
+    expect(
+      modifiedList(
+        productId,
+        initialProducts,
+        PRODUCT_COUNT_OPERATION.INCREMENT,
+      ),
+    ).toEqual(productsAfterIncrement);
   });
 
   it('should correctly decrement and dispatch the correct action', () => {
@@ -135,7 +127,7 @@ describe('Checking count update scenarios:', () => {
     const store = mockStore(initialState);
 
     // Dispatch the thunk
-    store.dispatch(updateCounThunk(productId, initialState.products, type));
+    store.dispatch(updateCountThunk(productId, initialState.products, type));
 
     // Get the dispatched actions
     const dispatchedActions = store.getActions();
@@ -159,7 +151,7 @@ describe('Checking count update scenarios:', () => {
     const store = mockStore(initialState);
 
     // Dispatch the thunk
-    store.dispatch(updateCounThunk(productId, initialState.products, type));
+    store.dispatch(updateCountThunk(productId, initialState.products, type));
 
     // Get the dispatched actions
     const dispatchedActions = store.getActions();

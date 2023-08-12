@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 import {
   PRODUCT_COUNT_OPERATION,
   PRODUCT_OBJECT,
-  updateCounThunk,
+  updateCountThunk,
 } from './listActions';
 import {useAppDispatch} from '../../redux';
 import {STATE_OBJECT} from './listReducer';
@@ -58,7 +58,7 @@ export const Cart = () => {
                   <Pressable
                     onPress={() => {
                       disptach(
-                        updateCounThunk(
+                        updateCountThunk(
                           item.id,
                           products,
                           PRODUCT_COUNT_OPERATION.INCREMENT,
@@ -72,7 +72,7 @@ export const Cart = () => {
                   <Pressable
                     onPress={() => {
                       disptach(
-                        updateCounThunk(
+                        updateCountThunk(
                           item.id,
                           products,
                           PRODUCT_COUNT_OPERATION.DECREMENT,

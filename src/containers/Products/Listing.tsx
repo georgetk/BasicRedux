@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 import {
   PRODUCT_COUNT_OPERATION,
   fetchProductsThunk,
-  updateCounThunk,
+  updateCountThunk,
 } from './listActions';
 import {NavigationProps, SCREEN_NAMES} from '../../../App';
 import {STATE_OBJECT} from './listReducer';
@@ -41,7 +41,7 @@ export const Listing: React.FC<{navigation: NavigationProps}> = ({
             <Pressable
               onPress={() => {
                 disptach(
-                  updateCounThunk(
+                  updateCountThunk(
                     item.id,
                     products,
                     PRODUCT_COUNT_OPERATION.INCREMENT,
