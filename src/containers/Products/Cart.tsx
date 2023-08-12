@@ -4,7 +4,7 @@ import {useSelector} from 'react-redux';
 import {
   PRODUCT_COUNT_OPERATION,
   PRODUCT_OBJECT,
-  updateCount,
+  updateCounThunk,
 } from './listActions';
 import {useAppDispatch} from '../../redux';
 import {STATE_OBJECT} from './listReducer';
@@ -30,7 +30,7 @@ const Footer: React.FC<FooterProps> = ({products}) => {
     <View>
       <Text>{`Total count: ${tCount}`}</Text>
 
-      <Text>{`Total price: ${tPrice}`}</Text>
+      <Text>{`Total price: ${tPrice.toFixed(2)}`}</Text>
     </View>
   );
 };
@@ -50,15 +50,15 @@ export const Cart = () => {
             {item?.count >= 1 ? (
               <View style={styles.contentContainer}>
                 <Text>{`${item.name} x ${item?.count}`}</Text>
-                <Text style={styles.price}>{`Price: ${
+                <Text style={styles.price}>{`Price: ${(
                   item.price * item?.count
-                }`}</Text>
+                ).toFixed(2)}`}</Text>
 
                 <View style={styles.buttonsContainer}>
                   <Pressable
                     onPress={() => {
                       disptach(
-                        updateCount(
+                        updateCounThunk(
                           item.id,
                           products,
                           PRODUCT_COUNT_OPERATION.INCREMENT,
@@ -72,7 +72,7 @@ export const Cart = () => {
                   <Pressable
                     onPress={() => {
                       disptach(
-                        updateCount(
+                        updateCounThunk(
                           item.id,
                           products,
                           PRODUCT_COUNT_OPERATION.DECREMENT,

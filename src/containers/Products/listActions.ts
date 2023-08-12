@@ -41,7 +41,7 @@ export const updateCountAction = (payload: PRODUCT_OBJECT[]) => ({
   payload: {products: payload},
 });
 
-export const fetchProducts = (): ThunkAction<
+export const fetchProductsThunk = (): ThunkAction<
   void,
   STATE_OBJECT,
   unknown,
@@ -71,7 +71,7 @@ export const fetchProducts = (): ThunkAction<
   };
 };
 
-export const updateCount =
+export const updateCounThunk =
   (id: number, products: PRODUCT_OBJECT[], type: string) =>
   (disptach: Dispatch) => {
     const modifiedList = products.map(item => {

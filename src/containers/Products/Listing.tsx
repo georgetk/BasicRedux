@@ -3,8 +3,8 @@ import {FlatList, Image, Pressable, Text, View, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
 import {
   PRODUCT_COUNT_OPERATION,
-  fetchProducts,
-  updateCount,
+  fetchProductsThunk,
+  updateCounThunk,
 } from './listActions';
 import {NavigationProps, SCREEN_NAMES} from '../../../App';
 import {STATE_OBJECT} from './listReducer';
@@ -20,7 +20,7 @@ export const Listing: React.FC<{navigation: NavigationProps}> = ({
   const products = useSelector((state: STATE_OBJECT) => state.products);
 
   useEffect(() => {
-    disptach(fetchProducts());
+    disptach(fetchProductsThunk());
   }, [disptach]);
 
   return (
@@ -41,7 +41,7 @@ export const Listing: React.FC<{navigation: NavigationProps}> = ({
             <Pressable
               onPress={() => {
                 disptach(
-                  updateCount(
+                  updateCounThunk(
                     item.id,
                     products,
                     PRODUCT_COUNT_OPERATION.INCREMENT,

@@ -10,7 +10,7 @@ import {
 export interface STATE_OBJECT {
   isLoading: boolean;
   products: PRODUCT_OBJECT[];
-  error: string | null | [];
+  error: string | null | undefined;
 }
 
 const INITIAL_STATE: STATE_OBJECT = {
@@ -20,7 +20,7 @@ const INITIAL_STATE: STATE_OBJECT = {
 };
 
 type PAYLOAD_TYPE = {
-  error: string;
+  error?: string;
   products: PRODUCT_OBJECT[];
 };
 
